@@ -6,7 +6,6 @@ services:
       POSTGRES_USER: username
       POSTGRES_DB: rightman
   app-back:
-    command: npm run start:dev
     volumes: 
       - ./right-man-back:/usr/src/app
     environment: 
