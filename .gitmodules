@@ -1,0 +1,6 @@
+[submodule "right-man-back"]
+	path = right-man-back
+	url = https://github.com/spdy999/right-man-back.git
+[submodule "right-man-front"]
+	path = right-man-front
+	url = https://github.com/spdy999/right-man-front.git

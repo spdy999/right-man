@@ -1,0 +1,8 @@
+version: '3'
+services: 
+  app-back:
+    command: npm run start:prod
+    volumes: 
+      - ./right-man-back:/usr/src/app
+    environment: 
+      - NODE_ENV=production
