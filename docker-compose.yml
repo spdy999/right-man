@@ -1,6 +1,13 @@
 version: '3'
 services: 
+  db:
+    image: postgres
+    restart: always
+    ports: 
+      - '5432:5432'
   app-back:
+    depends_on: 
+      - db
     build: right-man-back
     ports:
       - '5000:5000'

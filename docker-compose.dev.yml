@@ -1,8 +1,14 @@
 version: '3'
 services: 
+  db:
+    environment: 
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: username
+      POSTGRES_DB: rightman
   app-back:
     command: npm run start:dev
     volumes: 
       - ./right-man-back:/usr/src/app
     environment: 
       NODE_ENV: development
+      DATABASE_URL: postgres://username:password@db:5432/rightman
