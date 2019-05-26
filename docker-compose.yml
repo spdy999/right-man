@@ -22,3 +22,4 @@ services:
       PORT: 5000
       NODE_ENV: development
       DATABASE_URL: postgres://username:password@db:5432/rightman
+      JWT_SECRET: 'SECRET'
