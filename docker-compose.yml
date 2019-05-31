@@ -1,25 +1,60 @@
 version: '3'
-services: 
+services:
+  # db:
+  #   image: mysql:5.7
+  #   volumes:
+  #     - db_data:/var/lib/mysql
+  #   restart: always
+  #   ports:
+  #     - '3306:3306'
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: password
+  #     MYSQL_DATABASE: rightman 
   db:
     image: postgres
     restart: always
-    ports: 
+    ports:
       - '5432:5432'
-    environment: 
+    environment:
       POSTGRES_PASSWORD: password
       POSTGRES_USER: username
       POSTGRES_DB: rightman
+    # volumes:
+    #   - ./init.sql:/data/application/init.sql
+    # command: --init-file /data/application/init.sql
   app-back:
-    depends_on: 
+    depends_on:
       - db
-    volumes: 
-      - ./right-man-back:/usr/src/app
-      - /usr/src/app/node_modules
+    volumes:
+      - ./right-man-back:/app
+      - /app/node_modules
     build: right-man-back
     ports:
       - '5000:5000'
-    environment: 
+    environment:
       PORT: 5000
+      DB_HOST: db
+      DB_USER: root
+      DB_PASSWORD: password
       NODE_ENV: development
       DATABASE_URL: postgres://username:password@db:5432/rightman
       JWT_SECRET: 'SECRET'
+  app-front:
+    depends_on:
+      - db
+      - app-back
+    volumes:
+      - ./right-man-front:/app
+      - /app/node_modules
+    build: right-man-front
+    ports:
+      - '3000:3000'
+    environment:
+      PORT: 3000
+      NODE_ENV: development
+      NEW_SERVICE_HOST: http://app-back:5000
+    links: 
+      - app-back
+
+volumes:
+  db_data:
