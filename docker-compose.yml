@@ -39,22 +39,19 @@ services:
       NODE_ENV: development
       DATABASE_URL: postgres://username:password@db:5432/rightman
       JWT_SECRET: 'SECRET'
-  app-front:
-    depends_on:
-      - db
-      - app-back
-    volumes:
-      - ./right-man-front:/app
-      - /app/node_modules
-    build: right-man-front
-    ports:
-      - '3000:3000'
-    environment:
-      PORT: 3000
-      NODE_ENV: development
-      NEW_SERVICE_HOST: http://app-back:5000
-    links: 
-      - app-back
+  # app-front:
+  #   volumes:
+  #     - ./right-man-front:/app
+  #     - /app/node_modules
+  #   build: right-man-front
+  #   ports:
+  #     - '3000:3000'
+  #   environment:
+  #     PORT: 3000
+  #     NODE_ENV: development
+  #     NEW_SERVICE_HOST: http://app-back:5000
+  #   links: 
+  #     - app-back
 
 volumes:
   db_data:
